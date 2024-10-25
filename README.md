@@ -4,7 +4,8 @@ This is a customized version of the [Dark-Mode-Forms](https://github.com/BlueMys
 
 This project is based on v1.8.12 of Dark-Mode-Forms.
 
-Key Changes:
+**Key Changes:**
+
 	- Dark mode no longer removes borders from label controls.
 	- Changed the reversed button order on the dark mode message boxes.
 		- Ex.  "Yes, No instead of "No, Yes".
