@@ -819,8 +819,7 @@ namespace DarkModeForms
 				}
 				else
 				{
-					Contenedor.Controls.Add(field_Control, 0, currentRow); // Column 1 for text boxes
-					field_Control.Focus();
+					Contenedor.Controls.Add(field_Control, 0, currentRow); // Column 0 for text boxes
 				}
 
 				Err.SetIconAlignment(field_Control, ErrorIconAlignment.MiddleLeft);
