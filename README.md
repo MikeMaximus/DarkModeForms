@@ -1,8 +1,8 @@
 # Dark Mode Forms
 
-This is a customized version of the [Dark-Mode-Forms](https://github.com/BlueMystical/Dark-Mode-Forms) project by @BlueMystical for use with [Game Backup Monitor](https://mikemaximus.github.io/gbm-web/).  
+This is a customized version of the [Dark-Mode-Forms](https://github.com/BlueMystical/Dark-Mode-Forms) project by BlueMystical for use with [Game Backup Monitor](https://mikemaximus.github.io/gbm-web/).  
 
-This project is based on v1.8.12 of Dark-Mode-Forms.
+This project is based on v1.8.12 of [Dark-Mode-Forms](https://github.com/BlueMystical/Dark-Mode-Forms).
 
 **Key Changes:**
 
@@ -19,4 +19,4 @@ This project is based on v1.8.12 of Dark-Mode-Forms.
 
 Usage:
 
-Build the DLL and add it to your project.
+Build the DLL and overwrite DarkModeForms.dll in the References folder of the GBM project with the new version.
