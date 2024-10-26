@@ -98,7 +98,7 @@ namespace DarkModeForms
 			Form form = new Form
 			{
 				FormBorderStyle = FormBorderStyle.FixedDialog,
-				StartPosition = FormStartPosition.CenterParent,
+				StartPosition = FormStartPosition.CenterScreen,
 				MaximizeBox = false,
 				MinimizeBox = false,
 				Text = title,
