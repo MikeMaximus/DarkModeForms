@@ -378,7 +378,7 @@ namespace DarkModeForms
 			if (control is Button)
 			{
 				var button = control as Button;
-				button.FlatStyle = FlatStyle.System;
+				button.FlatStyle = IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard;
 				button.FlatAppearance.CheckedBackColor = OScolors.Accent;
 				button.BackColor = OScolors.Control;
 				button.FlatAppearance.BorderColor = (OwnerForm.AcceptButton == button) ?
