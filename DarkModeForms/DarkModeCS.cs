@@ -346,18 +346,19 @@ namespace DarkModeForms
 			if (control is Label)
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
 				//control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
-				control.Paint += (object sender, PaintEventArgs e) =>
-				{
-					if (control.Enabled == false && this.IsDarkMode)
-					{
-						var radio = (sender as Label);
-						Brush B = new SolidBrush(control.ForeColor);
+				//control.Paint += (object sender, PaintEventArgs e) =>
+				//{
+				//	if (control.Enabled == false && this.IsDarkMode)
+				//	{
+				//		var radio = (sender as Label);
+				//		Brush B = new SolidBrush(control.ForeColor);
 
-						e.Graphics.DrawString(radio.Text, radio.Font,
-						  B, new System.Drawing.PointF(1, 0));
-					}
-				};
+				//		e.Graphics.DrawString(radio.Text, radio.Font,
+				//		  B, new System.Drawing.PointF(1, 0));
+				//	}
+				//};
 			}
 			if (control is LinkLabel)
 			{
@@ -371,6 +372,7 @@ namespace DarkModeForms
 			}
 			if (control is NumericUpDown)
 			{
+				control.GetType().GetProperty("BorderStyle")?.SetValue(control, IsDarkMode ? BorderStyle.FixedSingle : BorderStyle.Fixed3D);
 				//Mode = IsDarkMode ? "DarkMode_CFD" : "ClearMode_CFD";
 				Mode = IsDarkMode ? "DarkMode_ItemsView" : "ClearMode_ItemsView";
 				SetWindowTheme(control.Handle, Mode, null);
@@ -417,17 +419,18 @@ namespace DarkModeForms
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
-				control.Paint += (object sender, PaintEventArgs e) =>
-				{
-					if (control.Enabled == false && this.IsDarkMode)
-					{
-						var radio = (sender as GroupBox);
-						Brush B = new SolidBrush(control.ForeColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
+				//control.Paint += (object sender, PaintEventArgs e) =>
+				//{
+				//	if (control.Enabled == false && this.IsDarkMode)
+				//	{
+				//		var radio = (sender as GroupBox);
+				//		Brush B = new SolidBrush(control.ForeColor);
 
-						e.Graphics.DrawString(radio.Text, radio.Font,
-						  B, new System.Drawing.PointF(6, 0));
-					}
-				};
+				//		e.Graphics.DrawString(radio.Text, radio.Font,
+				//		  B, new System.Drawing.PointF(6, 0));
+				//	}
+				//};
 			}
 			if (control is TableLayoutPanel)
 			{
@@ -496,33 +499,35 @@ namespace DarkModeForms
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
-				control.Paint += (object sender, PaintEventArgs e) =>
-				{
-					if (control.Enabled == false && this.IsDarkMode)
-					{
-						var radio = (sender as CheckBox);
-						Brush B = new SolidBrush(control.ForeColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
+				//control.Paint += (object sender, PaintEventArgs e) =>
+				//{
+				//	if (control.Enabled == false && this.IsDarkMode)
+				//	{
+				//		var radio = (sender as CheckBox);
+				//		Brush B = new SolidBrush(control.ForeColor);
 
-						e.Graphics.DrawString(radio.Text, radio.Font,
-						  B, new System.Drawing.PointF(16, 0));
-					}
-				};
+				//		e.Graphics.DrawString(radio.Text, radio.Font,
+				//		  B, new System.Drawing.PointF(16, 0));
+				//	}
+				//};
 			}
 			if (control is RadioButton)
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
-				control.Paint += (object sender, PaintEventArgs e) =>
-				{
-					if (control.Enabled == false && this.IsDarkMode)
-					{
-						var radio = (sender as RadioButton);
-						Brush B = new SolidBrush(control.ForeColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
+				//control.Paint += (object sender, PaintEventArgs e) =>
+				//{
+				//	if (control.Enabled == false && this.IsDarkMode)
+				//	{
+				//		var radio = (sender as RadioButton);
+				//		Brush B = new SolidBrush(control.ForeColor);
 
-						e.Graphics.DrawString(radio.Text, radio.Font,
-						  B, new System.Drawing.PointF(16, 0));
-					}
-				};
+				//		e.Graphics.DrawString(radio.Text, radio.Font,
+				//		  B, new System.Drawing.PointF(16, 0));
+				//	}
+				//};
 			}
 			if (control is MenuStrip)
 			{
