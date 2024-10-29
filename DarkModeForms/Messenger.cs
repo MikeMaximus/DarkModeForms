@@ -102,9 +102,9 @@ namespace DarkModeForms
 				MaximizeBox = false,
 				MinimizeBox = false,
 				Text = title,
-				Width = 340,
+				Width = 440,
 				Height = 170,
-				MinimumSize = new Size(340, 170)
+				MinimumSize = new Size(440, 170)
 			};
 
 			DarkModeCS DMode = new DarkModeCS(form);
@@ -322,7 +322,8 @@ namespace DarkModeForms
 				TextAlign = ContentAlignment.MiddleLeft,
 				Location = new Point(picBox.X + picBox.Width + 4, picBox.Y),
 				MaximumSize = new Size(form.ClientSize.Width - (picBox.X + picBox.Width) + 8, 0),
-				MinimumSize = new Size(form.ClientSize.Width - (picBox.X + picBox.Width) + 8, 64)
+				MinimumSize = new Size(form.ClientSize.Width - (picBox.X + picBox.Width) + 8, 64),
+				Padding = new Padding(0,0,20,0)
 			};
 			lblPrompt.BringToFront();
 			form.Controls.Add(lblPrompt);
