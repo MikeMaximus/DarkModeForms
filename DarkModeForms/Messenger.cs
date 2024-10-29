@@ -103,7 +103,8 @@ namespace DarkModeForms
 				MinimizeBox = false,
 				Text = title,
 				Width = 340,
-				Height = 170
+				Height = 170,
+				MinimumSize = new Size(340, 170)
 			};
 
 			DarkModeCS DMode = new DarkModeCS(form);
