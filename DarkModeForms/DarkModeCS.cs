@@ -347,19 +347,21 @@ namespace DarkModeForms
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
-				//control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
-				//control.Paint += (object sender, PaintEventArgs e) =>
-				//{
-				//	if (control.Enabled == false && this.IsDarkMode)
-				//	{
-				//		var radio = (sender as Label);
-				//		Brush B = new SolidBrush(control.ForeColor);
+                //control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
+                control.Paint += (object sender, PaintEventArgs e) =>
+                {
+                    if (control.Enabled == false && this.IsDarkMode)
+                    {
+                        var radio = (sender as Label);
+                        Brush B = new SolidBrush(OScolors.TextInactive);
 
-				//		e.Graphics.DrawString(radio.Text, radio.Font,
-				//		  B, new System.Drawing.PointF(1, 0));
-				//	}
-				//};
-			}
+						//The control needs to be cleared or we get duplicated text at high DPI.
+						e.Graphics.Clear(control.Parent.BackColor);
+                        e.Graphics.DrawString(radio.Text, radio.Font,
+                          B, new System.Drawing.PointF(1, 0));
+                    }
+                };
+            }
 			if (control is LinkLabel)
 			{
 				control.GetType().GetProperty("LinkColor")?.SetValue(control, OScolors.AccentLight);
@@ -526,36 +528,70 @@ namespace DarkModeForms
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
-				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
-				//control.Paint += (object sender, PaintEventArgs e) =>
-				//{
-				//	if (control.Enabled == false && this.IsDarkMode)
-				//	{
-				//		var radio = (sender as CheckBox);
-				//		Brush B = new SolidBrush(control.ForeColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, FlatStyle.Standard);
+                control.Paint += (object sender, PaintEventArgs e) =>
+                {
+                    if (control.Enabled == false && this.IsDarkMode)
+                    {
+                        var radio = (sender as CheckBox);
+                        Brush B = new SolidBrush(OScolors.TextInactive);
 
-				//		e.Graphics.DrawString(radio.Text, radio.Font,
-				//		  B, new System.Drawing.PointF(16, 0));
-				//	}
-				//};
-			}
+						//Manually clear the text part of the control, otherwise at high DPI we get partially duplicated text.
+						//This will likely only work with Standard or System flat style.
+						Brush F = new SolidBrush(radio.BackColor);
+						int GlyphSize = 0;
+						
+						if(radio.Checked)
+                        {
+							GlyphSize = CheckBoxRenderer.GetGlyphSize(e.Graphics, System.Windows.Forms.VisualStyles.CheckBoxState.CheckedDisabled).Width;
+						}
+						else
+                        {
+							GlyphSize = CheckBoxRenderer.GetGlyphSize(e.Graphics, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedDisabled).Width;
+						}
+
+						Rectangle R = new Rectangle(radio.ClientRectangle.X + GlyphSize, radio.ClientRectangle.Y, radio.ClientRectangle.Width - GlyphSize, radio.ClientRectangle.Height);
+						e.Graphics.FillRectangle(F, R);
+
+						e.Graphics.DrawString(radio.Text, radio.Font,
+                          B, new System.Drawing.PointF(16, 0));
+                    }
+                };
+            }
 			if (control is RadioButton)
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
-				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
-				//control.Paint += (object sender, PaintEventArgs e) =>
-				//{
-				//	if (control.Enabled == false && this.IsDarkMode)
-				//	{
-				//		var radio = (sender as RadioButton);
-				//		Brush B = new SolidBrush(control.ForeColor);
+				control.GetType().GetProperty("FlatStyle")?.SetValue(control, FlatStyle.Standard);
+                control.Paint += (object sender, PaintEventArgs e) =>
+                {
+                    if (control.Enabled == false && this.IsDarkMode)
+                    {
+                        var radio = (sender as RadioButton);
+                        Brush B = new SolidBrush(OScolors.TextInactive);
 
-				//		e.Graphics.DrawString(radio.Text, radio.Font,
-				//		  B, new System.Drawing.PointF(16, 0));
-				//	}
-				//};
-			}
+						//Manually clear the text part of the control, otherwise at high DPI we get partially duplicated text.
+						//This will likely only work with Standard or System flat style.
+						Brush F = new SolidBrush(radio.BackColor);
+						int GlyphSize = 0;
+
+						if (radio.Checked)
+						{
+							GlyphSize = RadioButtonRenderer.GetGlyphSize(e.Graphics, System.Windows.Forms.VisualStyles.RadioButtonState.CheckedDisabled).Width;
+						}
+						else
+						{
+							GlyphSize = RadioButtonRenderer.GetGlyphSize(e.Graphics, System.Windows.Forms.VisualStyles.RadioButtonState.CheckedDisabled).Width;
+						}
+
+						Rectangle R = new Rectangle(radio.ClientRectangle.X + GlyphSize, radio.ClientRectangle.Y, radio.ClientRectangle.Width - GlyphSize, radio.ClientRectangle.Height);
+						e.Graphics.FillRectangle(F, R);
+
+						e.Graphics.DrawString(radio.Text, radio.Font,
+                          B, new System.Drawing.PointF(16, 0));
+                    }
+                };
+            }
 			if (control is MenuStrip)
 			{
 				(control as MenuStrip).RenderMode = ToolStripRenderMode.Professional;
