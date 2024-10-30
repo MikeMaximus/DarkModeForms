@@ -419,18 +419,45 @@ namespace DarkModeForms
 			{
 				control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
 				control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
-				control.GetType().GetProperty("FlatStyle")?.SetValue(control, IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard);
-				//control.Paint += (object sender, PaintEventArgs e) =>
-				//{
-				//	if (control.Enabled == false && this.IsDarkMode)
-				//	{
-				//		var radio = (sender as GroupBox);
-				//		Brush B = new SolidBrush(control.ForeColor);
+                control.Paint += (object sender, PaintEventArgs e) =>
+                {
+					//Custom draw the group box in a nice flat style for dark mode (https://stackoverflow.com/a/20042058)
+					if (this.IsDarkMode)
+                    {
+						GroupBox box = (GroupBox)sender;
+						Graphics g = e.Graphics;
+						
+						if (box != null)
+						{
+							Brush textBrush = new SolidBrush(OScolors.TextActive);
+							Brush borderBrush = new SolidBrush(OScolors.ControlLight);
+							Pen borderPen = new Pen(borderBrush);
+							SizeF strSize = g.MeasureString(box.Text, box.Font);
+							Rectangle rect = new Rectangle(box.ClientRectangle.X,
+														   box.ClientRectangle.Y + (int)(strSize.Height / 2),
+														   box.ClientRectangle.Width - 1,
+														   box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
 
-				//		e.Graphics.DrawString(radio.Text, radio.Font,
-				//		  B, new System.Drawing.PointF(6, 0));
-				//	}
-				//};
+							// Clear text and border
+							g.Clear(box.Parent.BackColor);
+
+							// Draw text
+							g.DrawString(box.Text, box.Font, textBrush, box.Padding.Left, 0);
+
+							// Drawing Border
+							//Left
+							g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
+							//Right
+							g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+							//Bottom
+							g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+							//Top1
+							g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
+							//Top2
+							g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+						}
+					}
+                };
 			}
 			if (control is TableLayoutPanel)
 			{
